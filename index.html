@@ -83,10 +83,97 @@
             opacity: 0.8;
         }
 
-        .filtros {
+        /* Categorias em Destaque — Página Inicial */
+        .categorias-destaque {
             max-width: 1400px;
-            margin: 2rem auto;
+            margin: 3rem auto;
             padding: 0 2rem;
+        }
+
+        .categorias-titulo {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--cor-primaria);
+        }
+
+        .grade-categorias {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .categoria-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .categoria-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .categoria-imagem {
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        .categoria-imagem img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .categoria-card:hover .categoria-imagem img {
+            transform: scale(1.05);
+        }
+
+        .categoria-nome {
+            padding: 1.2rem;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--cor-primaria);
+        }
+
+        /* Área do Catálogo — escondida inicialmente */
+        .catalogo-secao {
+            background: #f8f8f8;
+            padding: 3rem 0 4rem;
+        }
+
+        .catalogo-conteudo {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .voltar-btn {
+            background: transparent;
+            border: none;
+            color: var(--cor-primaria);
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .voltar-btn:hover {
+            color: var(--cor-secundaria);
+        }
+
+        .filtros {
+            margin-bottom: 2rem;
             display: flex;
             gap: 0.8rem;
             flex-wrap: wrap;
@@ -109,9 +196,6 @@
         }
 
         .grade-produtos {
-            max-width: 1400px;
-            margin: 0 auto 4rem;
-            padding: 0 2rem;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 2.5rem;
@@ -130,29 +214,29 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
 
-        .container-imagem {
+        .produto-imagem {
             width: 100%;
             aspect-ratio: 9 / 16;
             overflow: hidden;
             background: #f0f0f0;
         }
 
-        .container-imagem img {
+        .produto-imagem img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.4s;
         }
 
-        .produto:hover .container-imagem img {
+        .produto:hover .produto-imagem img {
             transform: scale(1.05);
         }
 
-        .info-produto {
+        .produto-info {
             padding: 1.2rem;
         }
 
-        .categoria-produto {
+        .produto-categoria {
             font-size: 0.8rem;
             color: #888;
             text-transform: uppercase;
@@ -160,7 +244,7 @@
             margin-bottom: 0.5rem;
         }
 
-        .nome-produto {
+        .produto-nome {
             font-size: 1rem;
             font-weight: 600;
             margin-bottom: 1rem;
@@ -193,11 +277,6 @@
             text-align: center;
         }
 
-        .rodape-conteudo {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
         .rodape-nome {
             font-style: italic;
             font-size: 1.5rem;
@@ -215,10 +294,9 @@
             .hero h1 {
                 font-size: 1.8rem;
             }
-            .grade-produtos {
+            .grade-categorias, .grade-produtos {
                 grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
                 gap: 1.5rem;
-                padding: 0 1rem;
             }
         }
     </style>
@@ -228,8 +306,8 @@
         <div class="cabecalho-conteudo">
             <div class="logo">Neuza Petti</div>
             <nav class="navegacao">
-                <a href="#inicio">Início</a>
-                <a href="#catalogo">Catálogo</a>
+                <a href="#inicio" id="link-inicio">Início</a>
+                <a href="#catalogo" id="link-catalogo">Catálogo</a>
                 <a href="#contato">Contato</a>
             </nav>
         </div>
@@ -240,280 +318,315 @@
         <p>Estilo e elegância em cada detalhe</p>
     </section>
 
-    <section id="catalogo">
-        <div class="filtros">
-            <button class="botao-filtro ativo" data-categoria="todos">Todos</button>
-            <button class="botao-filtro" data-categoria="lencos">Lenços</button>
-            <button class="botao-filtro" data-categoria="cangas">Cangas</button>
-            <button class="botao-filtro" data-categoria="mini-ecobags">Mini Ecobags</button>
-            <button class="botao-filtro" data-categoria="clutchs">Clutchs</button>
-            <button class="botao-filtro" data-categoria="kaftans">Kaftans</button>
+    <!-- PÁGINA INICIAL — Categorias em Destaque -->
+    <section class="categorias-destaque" id="secao-inicio">
+        <h2 class="categorias-titulo">Nossas Categorias</h2>
+        <div class="grade-categorias">
+            <!-- Lenços -->
+            <div class="categoria-card" data-cat="lencos">
+                <div class="categoria-imagem">
+                    <img src="https://i.imgur.com/7vtSeSz.jpeg" alt="Lenços" loading="lazy">
+                </div>
+                <h3 class="categoria-nome">Lenços</h3>
+            </div>
+
+            <!-- Cangas -->
+            <div class="categoria-card" data-cat="cangas">
+                <div class="categoria-imagem">
+                    <img src="https://i.imgur.com/vw95ue9.jpeg" alt="Cangas" loading="lazy">
+                </div>
+                <h3 class="categoria-nome">Cangas</h3>
+            </div>
+
+            <!-- Mini Ecobags -->
+            <div class="categoria-card" data-cat="mini-ecobags">
+                <div class="categoria-imagem">
+                    <img src="https://i.imgur.com/mugzXSQ.jpeg" alt="Mini Ecobags" loading="lazy">
+                </div>
+                <h3 class="categoria-nome">Mini Ecobags</h3>
+            </div>
+
+            <!-- Clutchs -->
+            <div class="categoria-card" data-cat="clutchs">
+                <div class="categoria-imagem">
+                    <img src="https://i.imgur.com/Y4seH5o.jpeg" alt="Clutchs" loading="lazy">
+                </div>
+                <h3 class="categoria-nome">Clutchs</h3>
+            </div>
+
+            <!-- Kaftans -->
+            <div class="categoria-card" data-cat="kaftans">
+                <div class="categoria-imagem">
+                    <img src="https://i.imgur.com/iKSypTc.jpeg" alt="Kaftans" loading="lazy">
+                </div>
+                <h3 class="categoria-nome">Kaftans</h3>
+            </div>
         </div>
+    </section>
 
-        <div class="grade-produtos">
-            <!-- ===== LENÇOS - 20 IMAGENS ===== -->
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/7vtSeSz.jpeg" alt="Lenço Exclusivo 1" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 01</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
+    <!-- CATÁLOGO — Lista Completa de Produtos (inicialmente escondida) -->
+    <section class="catalogo-secao" id="secao-catalogo" style="display: none;">
+        <div class="catalogo-conteudo">
+            <button class="voltar-btn" id="btn-voltar">← Voltar para Categorias</button>
+            
+            <div class="filtros">
+                <button class="botao-filtro ativo" data-categoria="todos">Todos</button>
+                <button class="botao-filtro" data-categoria="lencos">Lenços</button>
+                <button class="botao-filtro" data-categoria="cangas">Cangas</button>
+                <button class="botao-filtro" data-categoria="mini-ecobags">Mini Ecobags</button>
+                <button class="botao-filtro" data-categoria="clutchs">Clutchs</button>
+                <button class="botao-filtro" data-categoria="kaftans">Kaftans</button>
             </div>
 
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/MRBqLoy.jpeg" alt="Lenço Exclusivo 2" loading="lazy">
+            <div class="grade-produtos">
+                <!-- ===== LENÇOS — 20 Produtos ===== -->
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/7vtSeSz.jpeg" alt="Lenço 01" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 01</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
                 </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 02</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/MRBqLoy.jpeg" alt="Lenço 02" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 02</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
                 </div>
-            </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/GGj7jFG.jpeg" alt="Lenço 03" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 03</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/O75Yaj6.jpeg" alt="Lenço 04" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 04</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/9lbXMWC.jpeg" alt="Lenço 05" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 05</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/NH8Y1oz.jpeg" alt="Lenço 06" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 06</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/3BVQ8yx.jpeg" alt="Lenço 07" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 07</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/vv6AfX3.jpeg" alt="Lenço 08" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 08</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/uJpRyC2.jpeg" alt="Lenço 09" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 09</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/sdVhrAN.jpeg" alt="Lenço 10" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 10</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/lkWV1oa.jpeg" alt="Lenço 11" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 11</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/NI1qzi2.jpeg" alt="Lenço 12" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 12</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/lB330hw.jpeg" alt="Lenço 13" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 13</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/3oVVKSS.jpeg" alt="Lenço 14" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 14</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/NRYE3RC.jpeg" alt="Lenço 15" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 15</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/bHQ35Q6.jpeg" alt="Lenço 16" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 16</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/xUUZtrt.jpeg" alt="Lenço 17" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 17</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/WkBdUkZ.jpeg" alt="Lenço 18" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 18</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/xK1jbKC.jpeg" alt="Lenço 19" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 19</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
+                <div class="produto" data-categoria="lencos">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/Fl0dnu3.jpeg" alt="Lenço 20" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Lenços</div>
+                        <h3 class="produto-nome">Lenço 20</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
+                </div>
 
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/GGj7jFG.jpeg" alt="Lenço Exclusivo 3" loading="lazy">
+                <!-- ===== CANGAS ===== -->
+                <div class="produto" data-categoria="cangas">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/YeO6Lkx.jpeg" alt="Canga" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Cangas</div>
+                        <h3 class="produto-nome">Canga Premium</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
                 </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 03</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
 
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/O75Yaj6.jpeg" alt="Lenço Exclusivo 4" loading="lazy">
+                <!-- ===== MINI ECOBAGS ===== -->
+                <div class="produto" data-categoria="mini-ecobags">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/FP2nDv6.jpeg" alt="Mini Ecobag" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Mini Ecobags</div>
+                        <h3 class="produto-nome">Mini Ecobag Charm</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
                 </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 04</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
 
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/9lbXMWC.jpeg" alt="Lenço Exclusivo 5" loading="lazy">
+                <!-- ===== CLUTCHS ===== -->
+                <div class="produto" data-categoria="clutchs">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/ZQmwuTX.jpeg" alt="Clutch" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Clutchs</div>
+                        <h3 class="produto-nome">Clutch de Festa</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
                 </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 05</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
 
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/NH8Y1oz.jpeg" alt="Lenço Exclusivo 6" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 06</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/3BVQ8yx.jpeg" alt="Lenço Exclusivo 7" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 07</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/vv6AfX3.jpeg" alt="Lenço Exclusivo 8" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 08</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/uJpRyC2.jpeg" alt="Lenço Exclusivo 9" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 09</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/sdVhrAN.jpeg" alt="Lenço Exclusivo 10" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 10</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/lkWV1oa.jpeg" alt="Lenço Exclusivo 11" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 11</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/NI1qzi2.jpeg" alt="Lenço Exclusivo 12" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 12</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/lB330hw.jpeg" alt="Lenço Exclusivo 13" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 13</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/3oVVKSS.jpeg" alt="Lenço Exclusivo 14" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 14</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/NRYE3RC.jpeg" alt="Lenço Exclusivo 15" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 15</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/bHQ35Q6.jpeg" alt="Lenço Exclusivo 16" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 16</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/xUUZtrt.jpeg" alt="Lenço Exclusivo 17" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 17</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/WkBdUkZ.jpeg" alt="Lenço Exclusivo 18" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 18</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/xK1jbKC.jpeg" alt="Lenço Exclusivo 19" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 19</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="lencos">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/Fl0dnu3.jpeg" alt="Lenço Exclusivo 20" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Lenços</div>
-                    <h3 class="nome-produto">Lenço 20</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <!-- ===== OUTRAS CATEGORIAS ===== -->
-            <div class="produto" data-categoria="cangas">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/YeO6Lkx.jpeg" alt="Canga Estilosa" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Cangas</div>
-                    <h3 class="nome-produto">Canga Premium</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="mini-ecobags">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/FP2nDv6.jpeg" alt="Mini Ecobag" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Mini Ecobags</div>
-                    <h3 class="nome-produto">Mini Ecobag Charm</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="clutchs">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/ZQmwuTX.jpeg" alt="Clutch Elegante" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Clutchs</div>
-                    <h3 class="nome-produto">Clutch de Festa</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                </div>
-            </div>
-
-            <div class="produto" data-categoria="kaftans">
-                <div class="container-imagem">
-                    <img src="https://i.imgur.com/E3QTOOn.jpeg" alt="Kaftan Exclusivo" loading="lazy">
-                </div>
-                <div class="info-produto">
-                    <div class="categoria-produto">Kaftans</div>
-                    <h3 class="nome-produto">Kaftan Elegância</h3>
-                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                <!-- ===== KAFTANS ===== -->
+                <div class="produto" data-categoria="kaftans">
+                    <div class="produto-imagem">
+                        <img src="https://i.imgur.com/E3QTOOn.jpeg" alt="Kaftan" loading="lazy">
+                    </div>
+                    <div class="produto-info">
+                        <div class="produto-categoria">Kaftans</div>
+                        <h3 class="produto-nome">Kaftan Elegância</h3>
+                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -529,18 +642,65 @@
     </footer>
 
     <script>
+        const secaoInicio = document.getElementById('secao-inicio');
+        const secaoCatalogo = document.getElementById('secao-catalogo');
+        const linkInicio = document.getElementById('link-inicio');
+        const linkCatalogo = document.getElementById('link-catalogo');
+        const btnVoltar = document.getElementById('btn-voltar');
+        const cardsCategoria = document.querySelectorAll('.categoria-card');
         const botoesFiltro = document.querySelectorAll('.botao-filtro');
         const produtos = document.querySelectorAll('.produto');
 
+        // Mostrar Início
+        function mostrarInicio() {
+            secaoInicio.style.display = 'block';
+            secaoCatalogo.style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mostrar Catálogo, opcionalmente filtrando uma categoria
+        function mostrarCatalogo(categoriaFiltro = 'todos') {
+            secaoInicio.style.display = 'none';
+            secaoCatalogo.style.display = 'block';
+            
+            botoesFiltro.forEach(b => b.classList.remove('ativo'));
+            document.querySelector(`[data-categoria="${categoriaFiltro}"]`).classList.add('ativo');
+            
+            produtos.forEach(produto => {
+                produto.style.display = (categoriaFiltro === 'todos' || produto.dataset.categoria === categoriaFiltro) ? 'block' : 'none';
+            });
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Navegação
+        linkInicio.addEventListener('click', (e) => {
+            e.preventDefault();
+            mostrarInicio();
+        });
+
+        linkCatalogo.addEventListener('click', (e) => {
+            e.preventDefault();
+            mostrarCatalogo();
+        });
+
+        btnVoltar.addEventListener('click', mostrarInicio);
+
+        // Clique no card da categoria → abre catálogo já filtrado
+        cardsCategoria.forEach(card => {
+            card.addEventListener('click', () => {
+                mostrarCatalogo(card.dataset.cat);
+            });
+        });
+
+        // Filtros do catálogo
         botoesFiltro.forEach(botao => {
             botao.addEventListener('click', () => {
                 botoesFiltro.forEach(b => b.classList.remove('ativo'));
                 botao.classList.add('ativo');
-
-                const categoria = botao.dataset.categoria;
-
-                produtos.forEach(produto => {
-                    produto.style.display = (categoria === 'todos' || produto.dataset.categoria === categoria) ? 'block' : 'none';
+                const cat = botao.dataset.categoria;
+                produtos.forEach(p => {
+                    p.style.display = (cat === 'todos' || p.dataset.categoria === cat) ? 'block' : 'none';
                 });
             });
         });
