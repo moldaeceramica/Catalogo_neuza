@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Moda | Neuza Petti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        :root {
+            --cor-primaria: #1a1a1a;
+            --cor-secundaria: #d4af37;
+            --cor-fundo: #fafafa;
+            --cor-texto: #333;
+            --cor-clara: #fff;
+            --sombra: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        body {
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--cor-clara);
+            padding: 1.5rem 2rem;
+            box-shadow: var(--sombra);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .cabecalho-conteudo {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--cor-primaria);
+            letter-spacing: 2px;
+            font-style: italic;
+        }
+
+        .navegacao a {
+            margin-left: 2rem;
+            text-decoration: none;
+            color: var(--cor-texto);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navegacao a:hover {
+            color: var(--cor-secundaria);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .filtros {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .botao-filtro {
+            padding: 0.7rem 1.2rem;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .botao-filtro.ativo, .botao-filtro:hover {
+            background: var(--cor-primaria);
+            color: white;
+            border-color: var(--cor-primaria);
+        }
+
+        .grade-produtos {
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .produto {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .produto:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .container-imagem {
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        .container-imagem img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .produto:hover .container-imagem img {
+            transform: scale(1.05);
+        }
+
+        .info-produto {
+            padding: 1.2rem;
+        }
+
+        .categoria-produto {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .nome-produto {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--cor-primaria);
+        }
+
+        .botao-interesse {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--cor-primaria);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .botao-interesse:hover {
+            background: var(--cor-secundaria);
+        }
+
+        footer {
+            background: var(--cor-primaria);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .rodape-conteudo {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .rodape-nome {
+            font-style: italic;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .cabecalho-conteudo {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .navegacao a {
+                margin: 0 0.8rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .grade-produtos {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="cabecalho-conteudo">
+            <div class="logo">Neuza Petti</div>
+            <nav class="navegacao">
+                <a href="#inicio">Início</a>
+                <a href="#catalogo">Catálogo</a>
+                <a href="#contato">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="inicio">
+        <h1>Coleção Exclusiva</h1>
+        <p>Estilo e elegância em cada detalhe</p>
+    </section>
+
+    <section id="catalogo">
+        <div class="filtros">
+            <button class="botao-filtro ativo" data-categoria="todos">Todos</button>
+            <button class="botao-filtro" data-categoria="lencos">Lenços</button>
+            <button class="botao-filtro" data-categoria="cangas">Cangas</button>
+            <button class="botao-filtro" data-categoria="mini-ecobags">Mini Ecobags</button>
+            <button class="botao-filtro" data-categoria="clutchs">Clutchs</button>
+            <button class="botao-filtro" data-categoria="kaftans">Kaftans</button>
+        </div>
+
+        <div class="grade-produtos">
+            <!-- ===== LENÇOS - 20 IMAGENS ===== -->
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/7vtSeSz.jpeg" alt="Lenço Exclusivo 1" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 01</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/MRBqLoy.jpeg" alt="Lenço Exclusivo 2" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 02</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/GGj7jFG.jpeg" alt="Lenço Exclusivo 3" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 03</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/O75Yaj6.jpeg" alt="Lenço Exclusivo 4" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 04</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/9lbXMWC.jpeg" alt="Lenço Exclusivo 5" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 05</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/NH8Y1oz.jpeg" alt="Lenço Exclusivo 6" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 06</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/3BVQ8yx.jpeg" alt="Lenço Exclusivo 7" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 07</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/vv6AfX3.jpeg" alt="Lenço Exclusivo 8" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 08</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/uJpRyC2.jpeg" alt="Lenço Exclusivo 9" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 09</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/sdVhrAN.jpeg" alt="Lenço Exclusivo 10" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 10</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/lkWV1oa.jpeg" alt="Lenço Exclusivo 11" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 11</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/NI1qzi2.jpeg" alt="Lenço Exclusivo 12" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 12</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/lB330hw.jpeg" alt="Lenço Exclusivo 13" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 13</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/3oVVKSS.jpeg" alt="Lenço Exclusivo 14" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 14</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/NRYE3RC.jpeg" alt="Lenço Exclusivo 15" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 15</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/bHQ35Q6.jpeg" alt="Lenço Exclusivo 16" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 16</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/xUUZtrt.jpeg" alt="Lenço Exclusivo 17" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 17</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/WkBdUkZ.jpeg" alt="Lenço Exclusivo 18" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 18</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/xK1jbKC.jpeg" alt="Lenço Exclusivo 19" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 19</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="lencos">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/Fl0dnu3.jpeg" alt="Lenço Exclusivo 20" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Lenços</div>
+                    <h3 class="nome-produto">Lenço 20</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <!-- ===== OUTRAS CATEGORIAS ===== -->
+            <div class="produto" data-categoria="cangas">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/YeO6Lkx.jpeg" alt="Canga Estilosa" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Cangas</div>
+                    <h3 class="nome-produto">Canga Premium</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="mini-ecobags">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/FP2nDv6.jpeg" alt="Mini Ecobag" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Mini Ecobags</div>
+                    <h3 class="nome-produto">Mini Ecobag Charm</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="clutchs">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/ZQmwuTX.jpeg" alt="Clutch Elegante" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Clutchs</div>
+                    <h3 class="nome-produto">Clutch de Festa</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+
+            <div class="produto" data-categoria="kaftans">
+                <div class="container-imagem">
+                    <img src="https://i.imgur.com/E3QTOOn.jpeg" alt="Kaftan Exclusivo" loading="lazy">
+                </div>
+                <div class="info-produto">
+                    <div class="categoria-produto">Kaftans</div>
+                    <h3 class="nome-produto">Kaftan Elegância</h3>
+                    <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contato">
+        <div class="rodape-conteudo">
+            <h3 class="rodape-nome">Neuza Petti</h3>
+            <p style="margin: 1rem 0 0.5rem;">São José dos Campos — SP</p>
+            <p style="margin-bottom: 1rem;">contato@seuemail.com.br</p>
+            <p style="opacity: 0.6; font-size: 0.9rem;">© 2026 Neuza Petti — Todos os direitos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        const botoesFiltro = document.querySelectorAll('.botao-filtro');
+        const produtos = document.querySelectorAll('.produto');
+
+        botoesFiltro.forEach(botao => {
+            botao.addEventListener('click', () => {
+                botoesFiltro.forEach(b => b.classList.remove('ativo'));
+                botao.classList.add('ativo');
+
+                const categoria = botao.dataset.categoria;
+
+                produtos.forEach(produto => {
+                    produto.style.display = (categoria === 'todos' || produto.dataset.categoria === categoria) ? 'block' : 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
