@@ -97,7 +97,7 @@
 
         .card-imagem {
             width: 100%; overflow: hidden; background: var(--cor-bege);
-            aspect-ratio: 9 / 16; border-radius: 3px;
+            aspect-ratio: 768 / 1376; border-radius: 3px;
         }
         .card-imagem.carregada { aspect-ratio: auto; }
         .card-imagem img { display: block; width: 100%; height: auto; transition: transform 0.6s ease; }
@@ -119,8 +119,10 @@
         }
         .card-titulo {
             font-family: var(--fonte-titulo); font-size: 1.35rem; font-weight: 500;
-            margin-bottom: 0.9rem; color: var(--cor-texto);
+            margin-bottom: 0.5rem; color: var(--cor-texto);
         }
+        .card-descricao { margin-bottom: 1rem; }
+        .card-descricao p { font-size: 0.78rem; font-weight: 300; line-height: 1.55; color: var(--cor-suave); }
 
         .botao-interesse {
             display: block; width: 100%; padding: 0.75rem;
@@ -253,22 +255,30 @@
         const CATEGORIAS = [
             {
                 id: 'lencos', nome: 'Lenços', singular: 'Lenço', capa: '7vtSeSz',
+                descricao: ['Grande 100 x 100 cm · Médio 70 x 70 cm', 'Tecido: seda mista premium'],
+                // Echarpes ficam junto com os lenços. Para marcar uma peça como echarpe, inclua o código da imagem aqui:
+                // especiais: { 'CODIGO_IMGUR': { nome: 'Echarpe 01', descricao: ['66 x 174 cm', 'Tecido: seda mista premium'] } },
+                especiais: {},
                 imagens: ['7vtSeSz','MRBqLoy','GGj7jFG','O75Yaj6','9lbXMWC','NH8Y1oz','3BVQ8yx','vv6AfX3','uJpRyC2','sdVhrAN','lkWV1oa','NI1qzi2','lB330hw','3oVVKSS','NRYE3RC','bHQ35Q6','xUUZtrt','WkBdUkZ','xK1jbKC','Fl0dnu3']
             },
             {
                 id: 'cangas', nome: 'Cangas', singular: 'Canga', capa: 'vw95ue9',
+                descricao: ['Tamanho: 110 x 140 cm', 'Tecido: seda mista premium'],
                 imagens: ['cugh0TH','6jUJKho','ZmZzutV','QKVs0ec','Q78iZxl','lUS7ihW','J11u7R5','oCFAcBm','b4glk9c','LKEFi7B','B9rTCn1','LHPqq7W','OKLLl4P','BDn1fAj','zsRIWht','hZ02lkk','f2HtQyy','KLRKeOf']
             },
             {
                 id: 'kaftans', nome: 'Kaftans', singular: 'Kaftan', capa: 'YfFcTD5',
+                descricao: ['Disponíveis no Longo com 1,02 x 1,38 m e Midi com 1,02 x 1,18 m', 'Tecido: seda mista premium'],
                 imagens: ['YfFcTD5','rrxWMwU','rfSFF4v','AOtDD2V','R2q4LT5','k2lmHWq','MtjRb9S','vqEyKNi','sqiRZ2b','d0sIfuu','DLkA48O','hCaHKM7','VkdZVhc','pdzhZUQ','YoMPytC','7yArIFH','pgOjiq6','ieapnRD','9xTtJPT','DOu8fTh','PwMehnd','zwqBbHx','Okoa5kM','XiPwILI','pCNwUs3','yMpazoY','4GQcewg','wBM0paG','wvQoT33','BGfAuDv']
             },
             {
                 id: 'clutchs', nome: 'Clutchs', singular: 'Clutch', capa: 'Y4seH5o',
+                descricao: ['Tamanho: 17 x 28 cm', 'Tecido: canvas barcelona'],
                 imagens: ['gF08dza','1mfL5Br','ps7OHta','fT1OLkx','m8PIsdp','pFoWFMw','Lkw95K0','lwFytRp','2Ubw9hQ','74DV1FD','Lb0vUem','r6yw8rs','0G9ynrl','r2LpuUB','CqjzXWD']
             },
             {
                 id: 'mini-ecobags', nome: 'Mini Ecobags', singular: 'Mini Ecobag', capa: 'mugzXSQ',
+                descricao: ['Tamanho: 17 x 24 cm', 'Tecido: algodão cru forrada'],
                 imagens: ['z6dGx1V','4q0LVtb','G3vjh87','gtN2apW','VUNLBQx','PtsQZAv','dFzo1mI','fwYltdt','9mDSNBW','2tbVgqa','AMuq06I','JdF8k6g','xW30zK5','kleDIbP','VYu1NdG','8H3GURL','MNTJUnJ','qPjosr0']
             }
         ];
@@ -342,9 +352,13 @@
             const grade = $('grade-produtos');
             CATEGORIAS.forEach(cat => {
                 cat.imagens.forEach((codigo, i) => {
-                    const nomeProduto = (cat.nomes && cat.nomes[i])
-                        ? cat.nomes[i]
-                        : `${cat.singular} ${String(i + 1).padStart(2, '0')}`;
+                    const especial = cat.especiais && cat.especiais[codigo];
+                    const nomeProduto = (especial && especial.nome)
+                        ? especial.nome
+                        : (cat.nomes && cat.nomes[i])
+                            ? cat.nomes[i]
+                            : `${cat.singular} ${String(i + 1).padStart(2, '0')}`;
+                    const linhas = (especial && especial.descricao) || cat.descricao || [];
 
                     const card = document.createElement('div');
                     card.className = 'card produto';
@@ -356,9 +370,16 @@
                     info.innerHTML = `
                         <div class="card-categoria"></div>
                         <h3 class="card-titulo"></h3>
+                        <div class="card-descricao"></div>
                         <a target="_blank" rel="noopener" class="botao-interesse">Tenho Interesse</a>`;
                     info.querySelector('.card-categoria').textContent = cat.nome;
                     info.querySelector('.card-titulo').textContent = nomeProduto;
+                    const boxDesc = info.querySelector('.card-descricao');
+                    linhas.forEach(l => {
+                        const p = document.createElement('p');
+                        p.textContent = l;
+                        boxDesc.appendChild(p);
+                    });
                     info.querySelector('a').href = linkWhatsApp(nomeProduto);
 
                     card.appendChild(info);
