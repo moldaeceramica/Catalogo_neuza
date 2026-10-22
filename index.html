@@ -5,297 +5,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Moda | Neuza Petti</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; }
 
         :root {
             --cor-primaria: #1a1a1a;
             --cor-secundaria: #d4af37;
             --cor-fundo: #fafafa;
             --cor-texto: #333;
-            --cor-clara: #fff;
             --sombra: 0 4px 12px rgba(0,0,0,0.08);
         }
 
-        body {
-            background-color: var(--cor-fundo);
-            color: var(--cor-texto);
-            line-height: 1.6;
-        }
+        body { background-color: var(--cor-fundo); color: var(--cor-texto); line-height: 1.6; }
 
         header {
-            background: var(--cor-clara);
+            background: #fff;
             padding: 1.5rem 2rem;
             box-shadow: var(--sombra);
             position: sticky;
             top: 0;
             z-index: 100;
         }
-
         .cabecalho-conteudo {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            max-width: 1400px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
         }
+        .logo { font-size: 1.8rem; font-weight: 500; color: var(--cor-primaria); letter-spacing: 2px; font-style: italic; }
+        .navegacao a { margin-left: 2rem; text-decoration: none; color: var(--cor-texto); font-weight: 500; transition: color 0.3s; }
+        .navegacao a:hover, .navegacao a.ativo { color: var(--cor-secundaria); }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 500;
-            color: var(--cor-primaria);
-            letter-spacing: 2px;
-            font-style: italic;
+        .hero { text-align: center; padding: 3rem 2rem; background: linear-gradient(135deg, #1a1a1a 0%, #333 100%); color: white; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .hero p { font-size: 1.1rem; opacity: 0.8; }
+
+        .secao { display: none; }
+        .secao.visivel { display: block; }
+
+        .container { max-width: 1400px; margin: 3rem auto; padding: 0 2rem; }
+        .titulo-secao { text-align: center; font-size: 1.8rem; margin-bottom: 2rem; color: var(--cor-primaria); }
+
+        /* ===== GRADE ADAPTÁVEL (masonry): cada imagem mantém sua proporção original ===== */
+        .grade {
+            column-width: 260px;
+            column-gap: 2rem;
         }
-
-        .navegacao a {
-            margin-left: 2rem;
-            text-decoration: none;
-            color: var(--cor-texto);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .navegacao a:hover {
-            color: var(--cor-secundaria);
-        }
-
-        .hero {
-            text-align: center;
-            padding: 3rem 2rem;
-            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
-            color: white;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            opacity: 0.8;
-        }
-
-        .categorias-destaque {
-            max-width: 1400px;
-            margin: 3rem auto;
-            padding: 0 2rem;
-        }
-
-        .categorias-titulo {
-            text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            color: var(--cor-primaria);
-        }
-
-        .grade-categorias {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .categoria-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--sombra);
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-        }
-
-        .categoria-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-
-        .categoria-imagem {
+        .card {
+            display: inline-block;
             width: 100%;
-            aspect-ratio: 9 / 16;
-            overflow: hidden;
-            background: #f0f0f0;
-        }
-
-        .categoria-imagem img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s;
-        }
-
-        .categoria-card:hover .categoria-imagem img {
-            transform: scale(1.05);
-        }
-
-        .categoria-nome {
-            padding: 1.2rem;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--cor-primaria);
-        }
-
-        .catalogo-secao {
-            background: #f8f8f8;
-            padding: 3rem 0 4rem;
-        }
-
-        .catalogo-conteudo {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .voltar-btn {
-            background: transparent;
-            border: none;
-            color: var(--cor-primaria);
-            font-size: 1rem;
-            cursor: pointer;
             margin-bottom: 2rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: color 0.3s;
-        }
-
-        .voltar-btn:hover {
-            color: var(--cor-secundaria);
-        }
-
-        .filtros {
-            margin-bottom: 2rem;
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .botao-filtro {
-            padding: 0.7rem 1.2rem;
-            border: 1px solid #ddd;
-            background: white;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .botao-filtro.ativo, .botao-filtro:hover {
-            background: var(--cor-primaria);
-            color: white;
-            border-color: var(--cor-primaria);
-        }
-
-        .grade-produtos {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .produto {
+            break-inside: avoid;
             background: white;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: var(--sombra);
             transition: transform 0.3s, box-shadow 0.3s;
         }
+        .card:hover { transform: translateY(-6px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+        .card.clicavel { cursor: pointer; }
 
-        .produto:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
+        .card-imagem { width: 100%; overflow: hidden; background: #f0f0f0; aspect-ratio: 9 / 16; }
+        .card-imagem.carregada { aspect-ratio: auto; }
+        .card-imagem img { display: block; width: 100%; height: auto; transition: transform 0.4s; }
+        .card:hover .card-imagem img { transform: scale(1.05); }
 
-        .produto-imagem {
-            width: 100%;
-            aspect-ratio: 9 / 16;
-            overflow: hidden;
-            background: #f0f0f0;
-        }
-
-        .produto-imagem img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s;
-        }
-
-        .produto:hover .produto-imagem img {
-            transform: scale(1.05);
-        }
-
-        .produto-info {
-            padding: 1.2rem;
-        }
-
-        .produto-categoria {
-            font-size: 0.8rem;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-
-        .produto-nome {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--cor-primaria);
-        }
+        .card-nome { padding: 1.2rem; text-align: center; font-size: 1.2rem; font-weight: 600; color: var(--cor-primaria); }
+        .card-info { padding: 1.2rem; }
+        .card-categoria { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+        .card-titulo { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--cor-primaria); }
 
         .botao-interesse {
-            width: 100%;
-            padding: 0.8rem;
-            background: var(--cor-primaria);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
+            display: block; width: 100%; padding: 0.8rem;
+            background: var(--cor-primaria); color: white;
+            border: none; border-radius: 6px; font-weight: 600; cursor: pointer;
+            transition: background 0.3s; text-decoration: none; text-align: center;
+        }
+        .botao-interesse:hover { background: #25D366; }
+
+        .catalogo-secao { background: #f8f8f8; padding: 3rem 0 4rem; }
+        .catalogo-secao .container { margin: 0 auto; }
+
+        .voltar-btn {
+            background: transparent; border: none; color: var(--cor-primaria);
+            font-size: 1rem; cursor: pointer; margin-bottom: 2rem; transition: color 0.3s;
+        }
+        .voltar-btn:hover { color: var(--cor-secundaria); }
+
+        .filtros { margin-bottom: 2rem; display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
+        .botao-filtro { padding: 0.7rem 1.2rem; border: 1px solid #ddd; background: white; border-radius: 30px; cursor: pointer; transition: all 0.3s; }
+        .botao-filtro.ativo, .botao-filtro:hover { background: var(--cor-primaria); color: white; border-color: var(--cor-primaria); }
+
+        /* ===== CATEGORIAS DA PÁGINA PRINCIPAL: cards alinhados, mesmo tamanho ===== */
+        .grade-categorias { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; }
+        .grade-categorias .card { width: 260px; margin-bottom: 0; display: block; }
+        .grade-categorias .card-imagem,
+        .grade-categorias .card-imagem.carregada { aspect-ratio: 3 / 4; }
+        .grade-categorias .card-imagem img { height: 100%; object-fit: cover; object-position: center 25%; }
+        @media (max-width: 768px) {
+            .grade-categorias { gap: 1rem; }
+            .grade-categorias .card { width: calc(50% - 0.5rem); }
         }
 
-        .botao-interesse:hover {
-            background: var(--cor-secundaria);
-        }
+        /* ===== QUEM SOMOS (landing só com imagens, rolagem vertical) ===== */
+        .landing { max-width: 900px; margin: 0 auto; background: #fff; }
+        .landing .card-imagem { background: #f0f0f0; }
+        .landing .card-imagem img { width: 100%; height: auto; display: block; }
 
-        footer {
-            background: var(--cor-primaria);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .rodape-nome {
-            font-style: italic;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
+        footer { background: var(--cor-primaria); color: white; padding: 3rem 2rem; text-align: center; }
+        .rodape-nome { font-style: italic; font-size: 1.5rem; margin-bottom: 1rem; }
+        footer a { color: white; }
 
         @media (max-width: 768px) {
-            .cabecalho-conteudo {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .navegacao a {
-                margin: 0 0.8rem;
-            }
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            .grade-categorias, .grade-produtos {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-                gap: 1.5rem;
-            }
+            .cabecalho-conteudo { flex-direction: column; }
+            .navegacao a { margin: 0 0.8rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .grade { column-width: 160px; column-gap: 1rem; }
+            .card { margin-bottom: 1rem; }
+            .container { padding: 0 1rem; }
         }
     </style>
 </head>
@@ -304,735 +128,214 @@
         <div class="cabecalho-conteudo">
             <div class="logo">Neuza Petti</div>
             <nav class="navegacao">
-                <a href="#inicio" id="link-inicio">Início</a>
-                <a href="#catalogo" id="link-catalogo">Catálogo</a>
+                <a href="#" data-ir="inicio">Início</a>
+                <a href="#" data-ir="catalogo">Catálogo</a>
+                <a href="#" data-ir="quem-somos">Quem Somos</a>
                 <a href="#contato">Contato</a>
             </nav>
         </div>
     </header>
 
-    <section class="hero" id="inicio">
+    <section class="hero">
         <h1>Coleção Exclusiva</h1>
         <p>Estilo e elegância em cada detalhe</p>
     </section>
 
-    <!-- PÁGINA INICIAL — Categorias em Destaque -->
-    <section class="categorias-destaque" id="secao-inicio">
-        <h2 class="categorias-titulo">Nossas Categorias</h2>
-        <div class="grade-categorias">
-            <!-- Lenços -->
-            <div class="categoria-card" data-cat="lencos">
-                <div class="categoria-imagem">
-                    <img src="https://i.imgur.com/7vtSeSz.jpeg" alt="Lenços" loading="lazy">
-                </div>
-                <h3 class="categoria-nome">Lenços</h3>
-            </div>
-
-            <!-- Cangas -->
-            <div class="categoria-card" data-cat="cangas">
-                <div class="categoria-imagem">
-                    <img src="https://i.imgur.com/vw95ue9.jpeg" alt="Cangas" loading="lazy">
-                </div>
-                <h3 class="categoria-nome">Cangas</h3>
-            </div>
-
-            <!-- Mini Ecobags -->
-            <div class="categoria-card" data-cat="mini-ecobags">
-                <div class="categoria-imagem">
-                    <img src="https://i.imgur.com/mugzXSQ.jpeg" alt="Mini Ecobags" loading="lazy">
-                </div>
-                <h3 class="categoria-nome">Mini Ecobags</h3>
-            </div>
-
-            <!-- Clutchs -->
-            <div class="categoria-card" data-cat="clutchs">
-                <div class="categoria-imagem">
-                    <img src="https://i.imgur.com/Y4seH5o.jpeg" alt="Clutchs" loading="lazy">
-                </div>
-                <h3 class="categoria-nome">Clutchs</h3>
-            </div>
-
-            <!-- Kaftans -->
-            <div class="categoria-card" data-cat="kaftans">
-                <div class="categoria-imagem">
-                    <img src="https://i.imgur.com/iKSypTc.jpeg" alt="Kaftans" loading="lazy">
-                </div>
-                <h3 class="categoria-nome">Kaftans</h3>
-            </div>
+    <!-- INÍCIO — Categorias -->
+    <section class="secao visivel" id="secao-inicio">
+        <div class="container">
+            <h2 class="titulo-secao">Nossas Categorias</h2>
+            <div class="grade-categorias" id="grade-categorias"></div>
         </div>
     </section>
 
-    <!-- CATÁLOGO — Lista Completa de Produtos -->
-    <section class="catalogo-secao" id="secao-catalogo" style="display: none;">
-        <div class="catalogo-conteudo">
+    <!-- CATÁLOGO — Produtos -->
+    <section class="secao catalogo-secao" id="secao-catalogo">
+        <div class="container">
             <button class="voltar-btn" id="btn-voltar">← Voltar para Categorias</button>
-            
-            <div class="filtros">
-                <button class="botao-filtro ativo" data-categoria="todos">Todos</button>
-                <button class="botao-filtro" data-categoria="lencos">Lenços</button>
-                <button class="botao-filtro" data-categoria="cangas">Cangas</button>
-                <button class="botao-filtro" data-categoria="mini-ecobags">Mini Ecobags</button>
-                <button class="botao-filtro" data-categoria="clutchs">Clutchs</button>
-                <button class="botao-filtro" data-categoria="kaftans">Kaftans</button>
-            </div>
-
-            <div class="grade-produtos">
-                <!-- ===== LENÇOS — 20 Produtos ===== -->
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/7vtSeSz.jpeg" alt="Lenço 01" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 01</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/MRBqLoy.jpeg" alt="Lenço 02" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 02</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/GGj7jFG.jpeg" alt="Lenço 03" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 03</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/O75Yaj6.jpeg" alt="Lenço 04" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 04</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/9lbXMWC.jpeg" alt="Lenço 05" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 05</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/NH8Y1oz.jpeg" alt="Lenço 06" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 06</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/3BVQ8yx.jpeg" alt="Lenço 07" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 07</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/vv6AfX3.jpeg" alt="Lenço 08" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 08</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/uJpRyC2.jpeg" alt="Lenço 09" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 09</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/sdVhrAN.jpeg" alt="Lenço 10" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 10</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/lkWV1oa.jpeg" alt="Lenço 11" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 11</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/NI1qzi2.jpeg" alt="Lenço 12" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 12</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/lB330hw.jpeg" alt="Lenço 13" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 13</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/3oVVKSS.jpeg" alt="Lenço 14" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 14</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/NRYE3RC.jpeg" alt="Lenço 15" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 15</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/bHQ35Q6.jpeg" alt="Lenço 16" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 16</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/xUUZtrt.jpeg" alt="Lenço 17" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 17</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/WkBdUkZ.jpeg" alt="Lenço 18" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 18</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/xK1jbKC.jpeg" alt="Lenço 19" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 19</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="lencos">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/Fl0dnu3.jpeg" alt="Lenço 20" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Lenços</div>
-                        <h3 class="produto-nome">Lenço 20</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-
-                <!-- ===== CANGAS — 18 Produtos ===== -->
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/cugh0TH.jpeg" alt="Canga 01" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 01</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/6jUJKho.jpeg" alt="Canga 02" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 02</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/ZmZzutV.jpeg" alt="Canga 03" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 03</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/QKVs0ec.jpeg" alt="Canga 04" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 04</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/Q78iZxl.jpeg" alt="Canga 05" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 05</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/lUS7ihW.jpeg" alt="Canga 06" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 06</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/J11u7R5.jpeg" alt="Canga 07" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 07</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/oCFAcBm.jpeg" alt="Canga 08" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 08</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/b4glk9c.jpeg" alt="Canga 09" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 09</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/LKEFi7B.jpeg" alt="Canga 10" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 10</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/B9rTCn1.jpeg" alt="Canga 11" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 11</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/LHPqq7W.jpeg" alt="Canga 12" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 12</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/OKLLl4P.jpeg" alt="Canga 13" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 13</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/BDn1fAj.jpeg" alt="Canga 14" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 14</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/zsRIWht.jpeg" alt="Canga 15" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 15</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/hZ02lkk.jpeg" alt="Canga 16" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 16</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/f2HtQyy.jpeg" alt="Canga 17" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 17</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="cangas">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/KLRKeOf.jpeg" alt="Canga 18" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Cangas</div>
-                        <h3 class="produto-nome">Canga 18</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-
-                <!-- ===== MINI ECOBAGS — 18 Produtos ===== -->
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/z6dGx1V.jpeg" alt="Mini Ecobag 01" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 01</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/4q0LVtb.jpeg" alt="Mini Ecobag 02" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 02</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/G3vjh87.jpeg" alt="Mini Ecobag 03" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 03</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/gtN2apW.jpeg" alt="Mini Ecobag 04" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 04</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/VUNLBQx.jpeg" alt="Mini Ecobag 05" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 05</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/PtsQZAv.jpeg" alt="Mini Ecobag 06" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 06</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/dFzo1mI.jpeg" alt="Mini Ecobag 07" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 07</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/fwYltdt.jpeg" alt="Mini Ecobag 08" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 08</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/9mDSNBW.jpeg" alt="Mini Ecobag 09" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 09</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/2tbVgqa.jpeg" alt="Mini Ecobag 10" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 10</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/AMuq06I.jpeg" alt="Mini Ecobag 11" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 11</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/JdF8k6g.jpeg" alt="Mini Ecobag 12" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 12</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/xW30zK5.jpeg" alt="Mini Ecobag 13" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 13</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/kleDIbP.jpeg" alt="Mini Ecobag 14" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 14</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/VYu1NdG.jpeg" alt="Mini Ecobag 15" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 15</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/8H3GURL.jpeg" alt="Mini Ecobag 16" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 16</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/MNTJUnJ.jpeg" alt="Mini Ecobag 17" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 17</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="mini-ecobags">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/qPjosr0.jpeg" alt="Mini Ecobag 18" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Mini Ecobags</div>
-                        <h3 class="produto-nome">Mini Ecobag 18</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-
-                             <!-- ===== CLUTCHS — 15 Produtos ===== -->
-                <div class="produto" data-categoria="clutchs">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/gF08dza.jpeg" alt="Clutch 01" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Clutchs</div>
-                        <h3 class="produto-nome">Clutch 01</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="clutchs">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/1mfL5Br.jpeg" alt="Clutch 02" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Clutchs</div>
-                        <h3 class="produto-nome">Clutch 02</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="clutchs">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/ps7OHta.jpeg" alt="Clutch 03" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Clutchs</div>
-                        <h3 class="produto-nome">Clutch 03</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="clutchs">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/fT1OLkx.jpeg" alt="Clutch 04" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Clutchs</div>
-                        <h3 class="produto-nome">Clutch 04</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="clutchs">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/m8PIsdp.jpeg" alt="Clutch 05" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Clutchs</div>
-                        <h3 class="produto-nome">Clutch 05</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="clutchs">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/pFoWFMw.jpeg" alt="Clutch 06" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Clutchs</div>
-                        <h3 class="produto-nome">Clutch 06</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="clutchs">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/Lkw95K0.jpeg" alt="Clutch 07" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Clutchs</div>
-                        <h3 class="produto-nome">Clutch 07</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="clutchs">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/lwFytRp.jpeg" alt="Clutch 08" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Clutchs</div>
-                        <h3 class="produto-nome">Clutch 08</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="clutchs">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/2Ubw9hQ.jpeg" alt="Clutch 09" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Clutchs</div>
-                        <h3 class="produto-nome">Clutch 09</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="clutchs">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/74DV1FD.jpeg" alt="Clutch 10" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Clutchs</div>
-                        <h3 class="produto-nome">Clutch 10</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="clutchs">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/Lb0vUem.jpeg" alt="Clutch 11" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Clutchs</div>
-                        <h3 class="produto-nome">Clutch 11</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="clutchs">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/r6yw8rs.jpeg" alt="Clutch 12" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Clutchs</div>
-                        <h3 class="produto-nome">Clutch 12</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="clutchs">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/0G9ynrl.jpeg" alt="Clutch 13" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Clutchs</div>
-                        <h3 class="produto-nome">Clutch 13</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="clutchs">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/r2LpuUB.jpeg" alt="Clutch 14" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Clutchs</div>
-                        <h3 class="produto-nome">Clutch 14</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-                <div class="produto" data-categoria="clutchs">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/CqjzXWD.jpeg" alt="Clutch 15" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Clutchs</div>
-                        <h3 class="produto-nome">Clutch 15</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-
-                <!-- ===== KAFTANS ===== -->
-                <div class="produto" data-categoria="kaftans">
-                    <div class="produto-imagem"><img src="https://i.imgur.com/E3QTOOn.jpeg" alt="Kaftan" loading="lazy"></div>
-                    <div class="produto-info">
-                        <div class="produto-categoria">Kaftans</div>
-                        <h3 class="produto-nome">Kaftan Elegância</h3>
-                        <a href="SEU_LINK_AQUI" target="_blank" class="botao-interesse">Tenho Interesse</a>
-                    </div>
-                </div>
-            </div>
+            <div class="filtros" id="filtros"></div>
+            <div class="grade" id="grade-produtos"></div>
         </div>
+    </section>
+
+    <!-- QUEM SOMOS -->
+    <section class="secao" id="secao-quem-somos">
+        <div class="landing" id="landing-quem-somos"></div>
     </section>
 
     <footer id="contato">
-        <div class="rodape-conteudo">
-            <h3 class="rodape-nome">Neuza Petti</h3>
-            <p style="margin: 1rem 0 0.5rem;">São José dos Campos — SP</p>
-            <p style="margin-bottom: 1rem;">contato@seuemail.com.br</p>
-            <p style="opacity: 0.6; font-size: 0.9rem;">© 2026 Neuza Petti — Todos os direitos reservados</p>
-        </div>
+        <h3 class="rodape-nome">Neuza Petti</h3>
+        <p style="margin: 1rem 0 0.5rem;">São José dos Campos — SP</p>
+        <p style="margin-bottom: 0.5rem;"><a href="https://wa.me/5511968984177" target="_blank" rel="noopener">WhatsApp: (11) 96898-4177</a></p>
+        <p style="margin-bottom: 1rem;">contato@seuemail.com.br</p>
+        <p style="opacity: 0.6; font-size: 0.9rem;">© 2026 Neuza Petti — Todos os direitos reservados</p>
     </footer>
 
     <script>
-        const secaoInicio = document.getElementById('secao-inicio');
-        const secaoCatalogo = document.getElementById('secao-catalogo');
-        const linkInicio = document.getElementById('link-inicio');
-        const linkCatalogo = document.getElementById('link-catalogo');
-        const btnVoltar = document.getElementById('btn-voltar');
-        const cardsCategoria = document.querySelectorAll('.categoria-card');
-        const botoesFiltro = document.querySelectorAll('.botao-filtro');
-        const produtos = document.querySelectorAll('.produto');
+        // ================= CONFIGURAÇÃO =================
+        const WHATSAPP = '5511968984177'; // 55 (Brasil) + DDD + número
+        const IMGUR = 'https://i.imgur.com/';
 
-        function mostrarInicio() {
-            secaoInicio.style.display = 'block';
-            secaoCatalogo.style.display = 'none';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Imagens da página "Quem Somos", exibidas em tamanho grande, uma abaixo da outra, na ordem da lista
+        const FOTOS_QUEM_SOMOS = ['ZN7G1yk','0v6TjbK','kt5gxze','e2g2Cc5','M8Tg9ww','u0DlupS','jNRihve'];
+
+        // Para adicionar um produto, basta incluir o código da imagem do imgur na lista.
+        // Exemplo: 'ABC123x' => https://i.imgur.com/ABC123x.jpeg
+        const CATEGORIAS = [
+            {
+                id: 'lencos', nome: 'Lenços', singular: 'Lenço', capa: '7vtSeSz',
+                imagens: ['7vtSeSz','MRBqLoy','GGj7jFG','O75Yaj6','9lbXMWC','NH8Y1oz','3BVQ8yx','vv6AfX3','uJpRyC2','sdVhrAN','lkWV1oa','NI1qzi2','lB330hw','3oVVKSS','NRYE3RC','bHQ35Q6','xUUZtrt','WkBdUkZ','xK1jbKC','Fl0dnu3']
+            },
+            {
+                id: 'cangas', nome: 'Cangas', singular: 'Canga', capa: 'vw95ue9',
+                imagens: ['cugh0TH','6jUJKho','ZmZzutV','QKVs0ec','Q78iZxl','lUS7ihW','J11u7R5','oCFAcBm','b4glk9c','LKEFi7B','B9rTCn1','LHPqq7W','OKLLl4P','BDn1fAj','zsRIWht','hZ02lkk','f2HtQyy','KLRKeOf']
+            },
+            {
+                id: 'mini-ecobags', nome: 'Mini Ecobags', singular: 'Mini Ecobag', capa: 'mugzXSQ',
+                imagens: ['z6dGx1V','4q0LVtb','G3vjh87','gtN2apW','VUNLBQx','PtsQZAv','dFzo1mI','fwYltdt','9mDSNBW','2tbVgqa','AMuq06I','JdF8k6g','xW30zK5','kleDIbP','VYu1NdG','8H3GURL','MNTJUnJ','qPjosr0']
+            },
+            {
+                id: 'clutchs', nome: 'Clutchs', singular: 'Clutch', capa: 'Y4seH5o',
+                imagens: ['gF08dza','1mfL5Br','ps7OHta','fT1OLkx','m8PIsdp','pFoWFMw','Lkw95K0','lwFytRp','2Ubw9hQ','74DV1FD','Lb0vUem','r6yw8rs','0G9ynrl','r2LpuUB','CqjzXWD']
+            },
+            {
+                id: 'kaftans', nome: 'Kaftans', singular: 'Kaftan', capa: 'iKSypTc',
+                imagens: ['E3QTOOn'],
+                nomes: ['Kaftan Elegância'] // nomes personalizados (opcional)
+            }
+        ];
+
+        // ================= FUNÇÕES AUXILIARES =================
+        const $ = (id) => document.getElementById(id);
+        const url = (codigo) => IMGUR + codigo + '.jpeg';
+
+        function linkWhatsApp(produto) {
+            const msg = `Olá! Tenho interesse no produto: ${produto}`;
+            return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
         }
 
-        function mostrarCatalogo(categoriaFiltro = 'todos') {
-            secaoInicio.style.display = 'none';
-            secaoCatalogo.style.display = 'block';
-            
-            botoesFiltro.forEach(b => b.classList.remove('ativo'));
-            document.querySelector(`[data-categoria="${categoriaFiltro}"]`).classList.add('ativo');
-            
-            produtos.forEach(produto => {
-                produto.style.display = (categoriaFiltro === 'todos' || produto.dataset.categoria === categoriaFiltro) ? 'block' : 'none';
-            });
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Cria a imagem e, ao carregar, libera a proporção original (9:16, quadrada, etc.)
+        function criarImagem(codigo, alt) {
+            const caixa = document.createElement('div');
+            caixa.className = 'card-imagem';
+            const img = document.createElement('img');
+            img.alt = alt;
+            img.loading = 'lazy';
+            const liberar = () => caixa.classList.add('carregada');
+            img.addEventListener('load', liberar);
+            img.addEventListener('error', liberar);
+            img.src = url(codigo);
+            caixa.appendChild(img);
+            if (img.complete) liberar();
+            return caixa;
         }
 
-        linkInicio.addEventListener('click', (e) => {
-            e.preventDefault();
-            mostrarInicio();
-        });
-
-        linkCatalogo.addEventListener('click', (e) => {
-            e.preventDefault();
-            mostrarCatalogo();
-        });
-
-        btnVoltar.addEventListener('click', mostrarInicio);
-
-        cardsCategoria.forEach(card => {
-            card.addEventListener('click', () => {
-                mostrarCatalogo(card.dataset.cat);
+        // ================= CONSTRUÇÃO DA PÁGINA =================
+        function montarCategorias() {
+            const grade = $('grade-categorias');
+            CATEGORIAS.forEach(cat => {
+                const card = document.createElement('div');
+                card.className = 'card clicavel';
+                card.appendChild(criarImagem(cat.capa, cat.nome));
+                const nome = document.createElement('h3');
+                nome.className = 'card-nome';
+                nome.textContent = cat.nome;
+                card.appendChild(nome);
+                card.addEventListener('click', () => mostrarCatalogo(cat.id));
+                grade.appendChild(card);
             });
-        });
+        }
 
-        botoesFiltro.forEach(botao => {
-            botao.addEventListener('click', () => {
-                botoesFiltro.forEach(b => b.classList.remove('ativo'));
-                botao.classList.add('ativo');
-                const cat = botao.dataset.categoria;
-                produtos.forEach(p => {
-                    p.style.display = (cat === 'todos' || p.dataset.categoria === cat) ? 'block' : 'none';
+        function montarFiltros() {
+            const filtros = $('filtros');
+            const itens = [{ id: 'todos', nome: 'Todos' }, ...CATEGORIAS];
+            itens.forEach(item => {
+                const b = document.createElement('button');
+                b.className = 'botao-filtro';
+                b.dataset.categoria = item.id;
+                b.textContent = item.nome;
+                b.addEventListener('click', () => aplicarFiltro(item.id));
+                filtros.appendChild(b);
+            });
+        }
+
+        function montarProdutos() {
+            const grade = $('grade-produtos');
+            CATEGORIAS.forEach(cat => {
+                cat.imagens.forEach((codigo, i) => {
+                    const nomeProduto = (cat.nomes && cat.nomes[i])
+                        ? cat.nomes[i]
+                        : `${cat.singular} ${String(i + 1).padStart(2, '0')}`;
+
+                    const card = document.createElement('div');
+                    card.className = 'card produto';
+                    card.dataset.categoria = cat.id;
+                    card.appendChild(criarImagem(codigo, nomeProduto));
+
+                    const info = document.createElement('div');
+                    info.className = 'card-info';
+                    info.innerHTML = `
+                        <div class="card-categoria"></div>
+                        <h3 class="card-titulo"></h3>
+                        <a target="_blank" rel="noopener" class="botao-interesse">Tenho Interesse</a>`;
+                    info.querySelector('.card-categoria').textContent = cat.nome;
+                    info.querySelector('.card-titulo').textContent = nomeProduto;
+                    info.querySelector('a').href = linkWhatsApp(nomeProduto);
+
+                    card.appendChild(info);
+                    grade.appendChild(card);
                 });
             });
+        }
+
+        function montarGaleria() {
+            const landing = $('landing-quem-somos');
+            FOTOS_QUEM_SOMOS.forEach((codigo, i) => {
+                landing.appendChild(criarImagem(codigo, `Neuza Petti — ${i + 1}`));
+            });
+        }
+
+        // ================= NAVEGAÇÃO =================
+        function mostrarSecao(nome) {
+            ['inicio', 'catalogo', 'quem-somos'].forEach(s => {
+                $('secao-' + s).classList.toggle('visivel', s === nome);
+            });
+            document.querySelectorAll('[data-ir]').forEach(a => {
+                a.classList.toggle('ativo', a.dataset.ir === nome);
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function aplicarFiltro(cat) {
+            document.querySelectorAll('.botao-filtro').forEach(b => {
+                b.classList.toggle('ativo', b.dataset.categoria === cat);
+            });
+            document.querySelectorAll('.produto').forEach(p => {
+                p.style.display = (cat === 'todos' || p.dataset.categoria === cat) ? '' : 'none';
+            });
+        }
+
+        function mostrarCatalogo(cat = 'todos') {
+            aplicarFiltro(cat);
+            mostrarSecao('catalogo');
+        }
+
+        document.querySelectorAll('[data-ir]').forEach(a => {
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                const destino = a.dataset.ir;
+                destino === 'catalogo' ? mostrarCatalogo('todos') : mostrarSecao(destino);
+            });
         });
+        $('btn-voltar').addEventListener('click', () => mostrarSecao('inicio'));
+
+        // ================= INICIAR =================
+        montarCategorias();
+        montarFiltros();
+        montarProdutos();
+        montarGaleria();
+        aplicarFiltro('todos');
+        mostrarSecao('inicio');
     </script>
 </body>
 </html>
