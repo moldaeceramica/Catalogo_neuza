@@ -4,23 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Moda | Neuza Petti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --cor-primaria: #1a1a1a;
-            --cor-secundaria: #d4af37;
-            --cor-fundo: #fafafa;
-            --cor-texto: #333;
-            --sombra: 0 4px 12px rgba(0,0,0,0.08);
+            --cor-texto: #3a3330;
+            --cor-suave: #8a7f78;
+            --cor-destaque: #b98b7b;      /* rosé / nude */
+            --cor-destaque-escuro: #9c6f60;
+            --cor-fundo: #ffffff;
+            --cor-bege: #f7f2ee;
+            --cor-linha: #eadfd8;
+            --fonte-titulo: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+            --fonte-texto: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
         }
 
-        body { background-color: var(--cor-fundo); color: var(--cor-texto); line-height: 1.6; }
+        body {
+            font-family: var(--fonte-texto);
+            font-weight: 300;
+            background: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
 
+        /* ===== CABEÇALHO ===== */
         header {
-            background: #fff;
-            padding: 1.5rem 2rem;
-            box-shadow: var(--sombra);
+            background: rgba(255,255,255,0.94);
+            backdrop-filter: blur(8px);
+            padding: 1.2rem 2rem;
+            border-bottom: 1px solid var(--cor-linha);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -29,98 +45,149 @@
             max-width: 1400px; margin: 0 auto;
             display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
         }
-        .logo { font-size: 1.8rem; font-weight: 500; color: var(--cor-primaria); letter-spacing: 2px; font-style: italic; }
-        .navegacao a { margin-left: 2rem; text-decoration: none; color: var(--cor-texto); font-weight: 500; transition: color 0.3s; }
-        .navegacao a:hover, .navegacao a.ativo { color: var(--cor-secundaria); }
+        .logo {
+            font-family: var(--fonte-titulo);
+            font-size: 2rem; font-weight: 500; font-style: italic;
+            color: var(--cor-texto); letter-spacing: 1px;
+        }
+        .navegacao a {
+            margin-left: 2.2rem; text-decoration: none; color: var(--cor-texto);
+            font-size: 0.78rem; font-weight: 400; letter-spacing: 2px; text-transform: uppercase;
+            padding-bottom: 4px; border-bottom: 1px solid transparent;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .navegacao a:hover, .navegacao a.ativo { color: var(--cor-destaque-escuro); border-color: var(--cor-destaque); }
 
-        .hero { text-align: center; padding: 3rem 2rem; background: linear-gradient(135deg, #1a1a1a 0%, #333 100%); color: white; }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        .hero p { font-size: 1.1rem; opacity: 0.8; }
+        /* ===== TÍTULO DE ABERTURA (sem tarja) ===== */
+        .hero { text-align: center; padding: 4rem 2rem 1.5rem; }
+        .hero h1 {
+            font-family: var(--fonte-titulo);
+            font-size: 3.2rem; font-weight: 500; letter-spacing: 1px;
+            color: var(--cor-texto); line-height: 1.15;
+        }
+        .hero p {
+            font-family: var(--fonte-titulo);
+            font-size: 1.35rem; font-style: italic; color: var(--cor-destaque-escuro);
+            margin-top: 0.6rem;
+        }
+        .hero::after {
+            content: ''; display: block; width: 60px; height: 1px;
+            background: var(--cor-destaque); margin: 1.8rem auto 0;
+        }
 
         .secao { display: none; }
         .secao.visivel { display: block; }
 
-        .container { max-width: 1400px; margin: 3rem auto; padding: 0 2rem; }
-        .titulo-secao { text-align: center; font-size: 1.8rem; margin-bottom: 2rem; color: var(--cor-primaria); }
+        .container { max-width: 1400px; margin: 2.5rem auto 4rem; padding: 0 2rem; }
+        .titulo-secao {
+            text-align: center; font-family: var(--fonte-titulo);
+            font-size: 2rem; font-weight: 500; letter-spacing: 1px;
+            margin-bottom: 2.5rem; color: var(--cor-texto);
+        }
 
-        /* ===== GRADE ADAPTÁVEL (masonry): cada imagem mantém sua proporção original ===== */
-        .grade {
-            column-width: 260px;
-            column-gap: 2rem;
-        }
+        /* ===== GRADE ADAPTÁVEL (masonry): cada imagem mantém sua proporção ===== */
+        .grade { column-width: 260px; column-gap: 2rem; }
         .card {
-            display: inline-block;
-            width: 100%;
-            margin-bottom: 2rem;
-            break-inside: avoid;
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--sombra);
-            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block; width: 100%;
+            margin-bottom: 2.2rem; break-inside: avoid;
+            background: transparent;
         }
-        .card:hover { transform: translateY(-6px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
         .card.clicavel { cursor: pointer; }
 
-        .card-imagem { width: 100%; overflow: hidden; background: #f0f0f0; aspect-ratio: 9 / 16; }
+        .card-imagem {
+            width: 100%; overflow: hidden; background: var(--cor-bege);
+            aspect-ratio: 9 / 16; border-radius: 3px;
+        }
         .card-imagem.carregada { aspect-ratio: auto; }
-        .card-imagem img { display: block; width: 100%; height: auto; transition: transform 0.4s; }
-        .card:hover .card-imagem img { transform: scale(1.05); }
+        .card-imagem img { display: block; width: 100%; height: auto; transition: transform 0.6s ease; }
+        .card:hover .card-imagem img { transform: scale(1.03); }
+        .card-imagem.indisponivel {
+            display: flex; align-items: center; justify-content: center;
+            min-height: 200px; color: var(--cor-suave); font-size: 0.85rem; text-align: center; padding: 1rem;
+        }
 
-        .card-imagem.indisponivel { display: flex; align-items: center; justify-content: center; min-height: 200px; color: #888; font-size: 0.9rem; text-align: center; padding: 1rem; }
-        .card-nome { padding: 1.2rem; text-align: center; font-size: 1.2rem; font-weight: 600; color: var(--cor-primaria); }
-        .card-info { padding: 1.2rem; }
-        .card-categoria { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
-        .card-titulo { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--cor-primaria); }
+        .card-nome {
+            padding: 1rem 0 0; text-align: center;
+            font-family: var(--fonte-titulo); font-size: 1.5rem; font-weight: 500;
+            letter-spacing: 1px; color: var(--cor-texto);
+        }
+        .card-info { padding: 0.9rem 0 0; text-align: center; }
+        .card-categoria {
+            font-size: 0.68rem; color: var(--cor-suave); text-transform: uppercase;
+            letter-spacing: 2.5px; margin-bottom: 0.2rem;
+        }
+        .card-titulo {
+            font-family: var(--fonte-titulo); font-size: 1.35rem; font-weight: 500;
+            margin-bottom: 0.9rem; color: var(--cor-texto);
+        }
 
         .botao-interesse {
-            display: block; width: 100%; padding: 0.8rem;
-            background: var(--cor-primaria); color: white;
-            border: none; border-radius: 6px; font-weight: 600; cursor: pointer;
-            transition: background 0.3s; text-decoration: none; text-align: center;
+            display: block; width: 100%; padding: 0.75rem;
+            background: transparent; color: var(--cor-texto);
+            border: 1px solid var(--cor-destaque); border-radius: 2px;
+            font-family: var(--fonte-texto); font-size: 0.72rem; font-weight: 500;
+            letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; text-align: center;
+            cursor: pointer; transition: background 0.3s, color 0.3s;
         }
-        .botao-interesse:hover { background: #25D366; }
+        .botao-interesse:hover { background: var(--cor-destaque); color: #fff; }
 
-        .catalogo-secao { background: #f8f8f8; padding: 3rem 0 4rem; }
-        .catalogo-secao .container { margin: 0 auto; }
-
+        /* ===== CATÁLOGO ===== */
+        .catalogo-secao { background: var(--cor-fundo); }
         .voltar-btn {
-            background: transparent; border: none; color: var(--cor-primaria);
-            font-size: 1rem; cursor: pointer; margin-bottom: 2rem; transition: color 0.3s;
+            background: transparent; border: none; color: var(--cor-suave);
+            font-family: var(--fonte-texto); font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase;
+            cursor: pointer; margin-bottom: 1.8rem; transition: color 0.3s;
         }
-        .voltar-btn:hover { color: var(--cor-secundaria); }
+        .voltar-btn:hover { color: var(--cor-destaque-escuro); }
 
-        .filtros { margin-bottom: 2rem; display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
-        .botao-filtro { padding: 0.7rem 1.2rem; border: 1px solid #ddd; background: white; border-radius: 30px; cursor: pointer; transition: all 0.3s; }
-        .botao-filtro.ativo, .botao-filtro:hover { background: var(--cor-primaria); color: white; border-color: var(--cor-primaria); }
+        .filtros { margin-bottom: 2.8rem; display: flex; gap: 0.4rem 1.8rem; flex-wrap: wrap; justify-content: center; }
+        .botao-filtro {
+            padding: 0.4rem 0; border: none; background: transparent; cursor: pointer;
+            font-family: var(--fonte-texto); font-size: 0.78rem; font-weight: 400;
+            letter-spacing: 2px; text-transform: uppercase; color: var(--cor-suave);
+            border-bottom: 1px solid transparent; transition: color 0.3s, border-color 0.3s;
+        }
+        .botao-filtro.ativo, .botao-filtro:hover { color: var(--cor-texto); border-bottom-color: var(--cor-destaque); }
 
-        /* ===== CATEGORIAS DA PÁGINA PRINCIPAL: cards alinhados, mesmo tamanho ===== */
-        .grade-categorias { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; }
+        /* ===== CATEGORIAS DA PÁGINA PRINCIPAL ===== */
+        .grade-categorias { display: flex; flex-wrap: wrap; justify-content: center; gap: 2.5rem 2rem; }
         .grade-categorias .card { width: 260px; margin-bottom: 0; display: block; }
         .grade-categorias .card-imagem,
         .grade-categorias .card-imagem.carregada { aspect-ratio: 3 / 4; }
         .grade-categorias .card-imagem img { height: 100%; object-fit: cover; object-position: center 25%; }
-        @media (max-width: 768px) {
-            .grade-categorias { gap: 1rem; }
-            .grade-categorias .card { width: calc(50% - 0.5rem); }
-        }
 
-        /* ===== QUEM SOMOS (landing só com imagens, rolagem vertical) ===== */
+        /* ===== QUEM SOMOS (landing só com imagens) ===== */
         .landing { max-width: 900px; margin: 0 auto; background: #fff; }
-        .landing .card-imagem { background: #f0f0f0; }
+        .landing .card-imagem { border-radius: 0; background: var(--cor-bege); }
         .landing .card-imagem img { width: 100%; height: auto; display: block; }
 
-        footer { background: var(--cor-primaria); color: white; padding: 3rem 2rem; text-align: center; }
-        .rodape-nome { font-style: italic; font-size: 1.5rem; margin-bottom: 1rem; }
-        footer a { color: white; }
+        /* ===== RODAPÉ (claro) ===== */
+        footer {
+            background: var(--cor-bege); color: var(--cor-texto);
+            padding: 3.5rem 2rem; text-align: center;
+            border-top: 1px solid var(--cor-linha);
+            font-size: 0.9rem;
+        }
+        .rodape-nome { font-family: var(--fonte-titulo); font-style: italic; font-weight: 500; font-size: 2rem; margin-bottom: 0.8rem; }
+        footer a { color: var(--cor-destaque-escuro); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
 
         @media (max-width: 768px) {
-            .cabecalho-conteudo { flex-direction: column; }
-            .navegacao a { margin: 0 0.8rem; }
-            .hero h1 { font-size: 1.8rem; }
+            header { padding: 1rem; }
+            .cabecalho-conteudo { flex-direction: column; gap: 0.6rem; }
+            .navegacao a { margin: 0 0.7rem; font-size: 0.7rem; letter-spacing: 1.5px; }
+            .hero { padding: 2.5rem 1rem 1rem; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1.15rem; }
+            .container { padding: 0 1rem; margin-top: 2rem; }
             .grade { column-width: 160px; column-gap: 1rem; }
-            .card { margin-bottom: 1rem; }
-            .container { padding: 0 1rem; }
+            .card { margin-bottom: 1.6rem; }
+            .card-nome { font-size: 1.25rem; }
+            .card-titulo { font-size: 1.15rem; }
+            .botao-interesse { font-size: 0.64rem; letter-spacing: 1.5px; padding: 0.7rem 0.3rem; }
+            .grade-categorias { gap: 1.8rem 1rem; }
+            .grade-categorias .card { width: calc(50% - 0.5rem); }
+            .filtros { gap: 0.3rem 1.1rem; }
         }
     </style>
 </head>
