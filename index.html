@@ -67,6 +67,7 @@
         .card-imagem img { display: block; width: 100%; height: auto; transition: transform 0.4s; }
         .card:hover .card-imagem img { transform: scale(1.05); }
 
+        .card-imagem.indisponivel { display: flex; align-items: center; justify-content: center; min-height: 200px; color: #888; font-size: 0.9rem; text-align: center; padding: 1rem; }
         .card-nome { padding: 1.2rem; text-align: center; font-size: 1.2rem; font-weight: 600; color: var(--cor-primaria); }
         .card-info { padding: 1.2rem; }
         .card-categoria { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
@@ -191,9 +192,8 @@
                 imagens: ['cugh0TH','6jUJKho','ZmZzutV','QKVs0ec','Q78iZxl','lUS7ihW','J11u7R5','oCFAcBm','b4glk9c','LKEFi7B','B9rTCn1','LHPqq7W','OKLLl4P','BDn1fAj','zsRIWht','hZ02lkk','f2HtQyy','KLRKeOf']
             },
             {
-                id: 'kaftans', nome: 'Kaftans', singular: 'Kaftan', capa: 'iKSypTc',
-                imagens: ['E3QTOOn'],
-                nomes: ['Kaftan Elegância'] // nomes personalizados (opcional)
+                id: 'kaftans', nome: 'Kaftans', singular: 'Kaftan', capa: 'YfFcTD5',
+                imagens: ['YfFcTD5','rrxWMwU','rfSFF4v','AOtDD2V','R2q4LT5','k2lmHWq','MtjRb9S','vqEyKNi','sqiRZ2b','d0sIfuu','DLkA48O','hCaHKM7','VkdZVhc','pdzhZUQ','YoMPytC','7yArIFH','pgOjiq6','ieapnRD','9xTtJPT','DOu8fTh','PwMehnd','zwqBbHx','Okoa5kM','XiPwILI','pCNwUs3','yMpazoY','4GQcewg','wBM0paG','wvQoT33','BGfAuDv']
             },
             {
                 id: 'clutchs', nome: 'Clutchs', singular: 'Clutch', capa: 'Y4seH5o',
@@ -207,7 +207,8 @@
 
         // ================= FUNÇÕES AUXILIARES =================
         const $ = (id) => document.getElementById(id);
-        const url = (codigo) => IMGUR + codigo + '.jpeg';
+        const EXTENSOES = ['jpeg', 'jpg', 'png', 'webp', 'gif'];
+        const url = (codigo, ext = 'jpeg') => IMGUR + codigo + '.' + ext;
 
         function linkWhatsApp(produto) {
             const msg = `Olá! Tenho interesse no produto: ${produto}`;
@@ -221,12 +222,22 @@
             const img = document.createElement('img');
             img.alt = alt;
             img.loading = 'lazy';
+            img.referrerPolicy = 'no-referrer'; // evita bloqueio de imagem por referência (hotlink)
+            let tentativa = 0;
             const liberar = () => caixa.classList.add('carregada');
             img.addEventListener('load', liberar);
-            img.addEventListener('error', liberar);
-            img.src = url(codigo);
+            img.addEventListener('error', () => {
+                tentativa++;
+                if (tentativa < EXTENSOES.length) {
+                    img.src = url(codigo, EXTENSOES[tentativa]); // tenta .jpg, .png, .webp, .gif
+                } else {
+                    caixa.textContent = 'Imagem indisponível';
+                    caixa.classList.add('carregada', 'indisponivel');
+                }
+            });
+            img.src = url(codigo, EXTENSOES[0]);
             caixa.appendChild(img);
-            if (img.complete) liberar();
+            if (img.complete && img.naturalWidth > 0) liberar();
             return caixa;
         }
 
