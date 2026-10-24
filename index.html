@@ -259,6 +259,119 @@
         // Imagens da página "Quem Somos", exibidas em tamanho grande, uma abaixo da outra, na ordem da lista
         const FOTOS_QUEM_SOMOS = ['ZN7G1yk','0v6TjbK','kt5gxze','e2g2Cc5','M8Tg9ww','u0DlupS','jNRihve'];
 
+        // ================= CÓDIGOS / NOMES DOS PRODUTOS =================
+        // Para trocar o nome de um produto pelo código dele, edite só o texto da DIREITA.
+        // (A esquerda é o código da imagem no imgur - não mexa.)
+        // Esse nome aparece no card e na mensagem enviada pelo WhatsApp.
+        const NOMES = {
+            // ----- Lenços -----
+            '7vtSeSz': 'Lenço 01',
+            'MRBqLoy': 'Lenço 02',
+            'GGj7jFG': 'Lenço 03',
+            'O75Yaj6': 'Lenço 04',
+            '9lbXMWC': 'Lenço 05',
+            'NH8Y1oz': 'Lenço 06',
+            '3BVQ8yx': 'Lenço 07',
+            'vv6AfX3': 'Lenço 08',
+            'uJpRyC2': 'Lenço 09',
+            'sdVhrAN': 'Lenço 10',
+            'lkWV1oa': 'Lenço 11',
+            'NI1qzi2': 'Lenço 12',
+            'lB330hw': 'Lenço 13',
+            '3oVVKSS': 'Lenço 14',
+            'NRYE3RC': 'Lenço 15',
+            'bHQ35Q6': 'Lenço 16',
+            'xUUZtrt': 'Lenço 17',
+            'WkBdUkZ': 'Lenço 18',
+            'xK1jbKC': 'Lenço 19',
+            'Fl0dnu3': 'Lenço 20',
+            // ----- Cangas -----
+            'cugh0TH': 'Canga 01',
+            '6jUJKho': 'Canga 02',
+            'ZmZzutV': 'Canga 03',
+            'QKVs0ec': 'Canga 04',
+            'Q78iZxl': 'Canga 05',
+            'lUS7ihW': 'Canga 06',
+            'J11u7R5': 'Canga 07',
+            'oCFAcBm': 'Canga 08',
+            'b4glk9c': 'Canga 09',
+            'LKEFi7B': 'Canga 10',
+            'B9rTCn1': 'Canga 11',
+            'LHPqq7W': 'Canga 12',
+            'OKLLl4P': 'Canga 13',
+            'BDn1fAj': 'Canga 14',
+            'zsRIWht': 'Canga 15',
+            'hZ02lkk': 'Canga 16',
+            'f2HtQyy': 'Canga 17',
+            'KLRKeOf': 'Canga 18',
+            // ----- Kaftans -----
+            'YfFcTD5': 'Kaftan 01',
+            'rrxWMwU': 'Kaftan 02',
+            'rfSFF4v': 'Kaftan 03',
+            'AOtDD2V': 'Kaftan 04',
+            'R2q4LT5': 'Kaftan 05',
+            'k2lmHWq': 'Kaftan 06',
+            'MtjRb9S': 'Kaftan 07',
+            'vqEyKNi': 'Kaftan 08',
+            'sqiRZ2b': 'Kaftan 09',
+            'd0sIfuu': 'Kaftan 10',
+            'DLkA48O': 'Kaftan 11',
+            'hCaHKM7': 'Kaftan 12',
+            'VkdZVhc': 'Kaftan 13',
+            'pdzhZUQ': 'Kaftan 14',
+            'YoMPytC': 'Kaftan 15',
+            '7yArIFH': 'Kaftan 16',
+            'pgOjiq6': 'Kaftan 17',
+            'ieapnRD': 'Kaftan 18',
+            '9xTtJPT': 'Kaftan 19',
+            'DOu8fTh': 'Kaftan 20',
+            'PwMehnd': 'Kaftan 21',
+            'zwqBbHx': 'Kaftan 22',
+            'Okoa5kM': 'Kaftan 23',
+            'XiPwILI': 'Kaftan 24',
+            'pCNwUs3': 'Kaftan 25',
+            'yMpazoY': 'Kaftan 26',
+            '4GQcewg': 'Kaftan 27',
+            'wBM0paG': 'Kaftan 28',
+            'wvQoT33': 'Kaftan 29',
+            'BGfAuDv': 'Kaftan 30',
+            // ----- Clutchs -----
+            'gF08dza': 'Clutch 01',
+            '1mfL5Br': 'Clutch 02',
+            'ps7OHta': 'Clutch 03',
+            'fT1OLkx': 'Clutch 04',
+            'm8PIsdp': 'Clutch 05',
+            'pFoWFMw': 'Clutch 06',
+            'Lkw95K0': 'Clutch 07',
+            'lwFytRp': 'Clutch 08',
+            '2Ubw9hQ': 'Clutch 09',
+            '74DV1FD': 'Clutch 10',
+            'Lb0vUem': 'Clutch 11',
+            'r6yw8rs': 'Clutch 12',
+            '0G9ynrl': 'Clutch 13',
+            'r2LpuUB': 'Clutch 14',
+            'CqjzXWD': 'Clutch 15',
+            // ----- Mini Ecobags -----
+            'z6dGx1V': 'MINI-ECO-NP-001',
+            '4q0LVtb': 'MINI-ECO-NP-003A',
+            'G3vjh87': 'MINI-ECO-NP-003B',
+            'gtN2apW': 'MINI-ECO-NP-004A',
+            'VUNLBQx': 'MINI-ECO-NP-004B',
+            'PtsQZAv': 'MINI-ECO-NP-005',
+            'dFzo1mI': 'MINI-ECO-NP-006',
+            'fwYltdt': 'MINI-ECO-NP-007',
+            '9mDSNBW': 'MINI-ECO-NP-008',
+            '2tbVgqa': 'MINI-ECO-NP-009',
+            'AMuq06I': 'MINI-ECO-NP-010',
+            'JdF8k6g': 'MINI-ECO-NP-011',
+            'xW30zK5': 'MINI-ECO-NP-012',
+            'kleDIbP': 'MINI-ECO-NP-013',
+            'VYu1NdG': 'MINI-ECO-NP-014',
+            '8H3GURL': 'MINI-ECO-NP-015',
+            'MNTJUnJ': 'MINI-ECO-NP-017',
+            'qPjosr0': 'MINI-ECO-NP-018',
+        };
+
         // Para adicionar um produto, basta incluir o código da imagem do imgur na lista.
         // Exemplo: 'ABC123x' => https://i.imgur.com/ABC123x.jpeg
         const CATEGORIAS = [
@@ -278,7 +391,7 @@
             {
                 id: 'kaftans', nome: 'Kaftans', singular: 'Kaftan', capa: 'sMrIDnY',
                 descricao: ['Disponíveis no Longo com 1,02 x 1,38 m e Midi com 1,02 x 1,18 m', 'Tecido: seda mista premium'],
-                imagens: ['YfFcTD5','rrxWMwU','sMrIDnY','AOtDD2V','R2q4LT5','k2lmHWq','MtjRb9S','vqEyKNi','sqiRZ2b','d0sIfuu','DLkA48O','hCaHKM7','VkdZVhc','pdzhZUQ','YoMPytC','7yArIFH','pgOjiq6','ieapnRD','9xTtJPT','DOu8fTh','PwMehnd','zwqBbHx','Okoa5kM','XiPwILI','pCNwUs3','yMpazoY','4GQcewg','wBM0paG','wvQoT33','BGfAuDv']
+                imagens: ['YfFcTD5','rrxWMwU','rfSFF4v','AOtDD2V','R2q4LT5','k2lmHWq','MtjRb9S','vqEyKNi','sqiRZ2b','d0sIfuu','DLkA48O','hCaHKM7','VkdZVhc','pdzhZUQ','YoMPytC','7yArIFH','pgOjiq6','ieapnRD','9xTtJPT','DOu8fTh','PwMehnd','zwqBbHx','Okoa5kM','XiPwILI','pCNwUs3','yMpazoY','4GQcewg','wBM0paG','wvQoT33','BGfAuDv']
             },
             {
                 id: 'clutchs', nome: 'Clutchs', singular: 'Clutch', capa: 'STiUpwX',
@@ -364,9 +477,11 @@
                     const especial = cat.especiais && cat.especiais[codigo];
                     const nomeProduto = (especial && especial.nome)
                         ? especial.nome
-                        : (cat.nomes && cat.nomes[i])
-                            ? cat.nomes[i]
-                            : `${cat.singular} ${String(i + 1).padStart(2, '0')}`;
+                        : NOMES[codigo]
+                            ? NOMES[codigo]
+                            : (cat.nomes && cat.nomes[i])
+                                ? cat.nomes[i]
+                                : `${cat.singular} ${String(i + 1).padStart(2, '0')}`;
                     const linhas = (especial && especial.descricao) || cat.descricao || [];
 
                     const card = document.createElement('div');
