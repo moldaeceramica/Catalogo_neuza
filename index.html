@@ -131,7 +131,7 @@
             margin-bottom: 0.5rem; color: var(--cor-texto);
         }
         .card-descricao { margin-bottom: 1rem; }
-        .card-descricao p { font-size: 0.78rem; font-weight: 300; line-height: 1.55; color: var(--cor-suave); }
+        .card-descricao p { font-size: 0.88rem; font-weight: 400; line-height: 1.55; color: #4a403b; }
 
         .botao-interesse {
             display: block; width: 100%; padding: 0.75rem;
@@ -336,7 +336,7 @@
             // ----- Kaftans -----
             'YfFcTD5': 'KF-NP-001L',
             'rrxWMwU': 'KF-NP-001M',
-            'rfSFF4v': 'KF-NP-003L',
+            'sMrIDnY': 'KF-NP-003L',
             'AOtDD2V': 'KF-NP-003M',
             'R2q4LT5': 'KF-NP-004L',
             'k2lmHWq': 'KF-NP-004M',
@@ -410,6 +410,10 @@
                 // Echarpes ficam junto com os lenços. Para marcar uma peça como echarpe, inclua o código da imagem aqui:
                 // especiais: { 'CODIGO_IMGUR': { nome: 'Echarpe 01', descricao: ['66 x 174 cm', 'Tecido: seda mista premium'] } },
                 especiais: {},
+                // Peças cujo código começa com o prefixo abaixo usam esta descrição (ex.: as echarpes)
+                porPrefixo: {
+                    'ECHARPE': ['66 x 174 cm', 'Tecido: seda mista premium']
+                },
                 imagens: ['aRBsjsA','MRBqLoy','GGj7jFG','O75Yaj6','9lbXMWC','NH8Y1oz','3BVQ8yx','vv6AfX3','uJpRyC2','sdVhrAN','lkWV1oa','NI1qzi2','lB330hw','3oVVKSS','NRYE3RC','bHQ35Q6','xUUZtrt','WkBdUkZ','xK1jbKC','Fl0dnu3']
             },
             {
@@ -538,11 +542,18 @@
             return grupos;
         }
 
-        function criarInfo(cat, item) {
-            const especial = cat.especiais && cat.especiais[codigoDe(item)];
-            const linhas = (especial && especial.descricao)
+        function linhasDoProduto(cat, item) {
+            const especial = cat.especiais && cat.especiais[item.codigo];
+            const prefixo = cat.porPrefixo && Object.keys(cat.porPrefixo)
+                .find(p => item.nome.toUpperCase().startsWith(p));
+            return (especial && especial.descricao)
+                || (prefixo && cat.porPrefixo[prefixo])
                 || (item.sufixo && cat.variacoes && cat.variacoes[item.sufixo])
                 || cat.descricao || [];
+        }
+
+        function criarInfo(cat, item) {
+            const linhas = linhasDoProduto(cat, item);
 
             const info = document.createElement('div');
             info.className = 'card-info';
