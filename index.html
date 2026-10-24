@@ -6,7 +6,7 @@
     <title>Catálogo de Moda | Neuza Petti</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -43,15 +43,16 @@
         }
         .cabecalho-conteudo {
             max-width: 1400px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+            display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 1rem;
         }
         .logo {
             font-family: var(--fonte-titulo);
             font-size: 2rem; font-weight: 500; font-style: italic;
             color: var(--cor-texto); letter-spacing: 1px;
         }
+        .navegacao { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem 2.2rem; }
         .navegacao a {
-            margin-left: 2.2rem; text-decoration: none; color: var(--cor-texto);
+            margin-left: 0; text-decoration: none; color: var(--cor-texto);
             font-size: 0.78rem; font-weight: 400; letter-spacing: 2px; text-transform: uppercase;
             padding-bottom: 4px; border-bottom: 1px solid transparent;
             transition: color 0.3s, border-color 0.3s;
@@ -74,12 +75,12 @@
         .hero-nome {
             display: block;
             font-family: var(--fonte-titulo);
-            font-size: 4rem; font-weight: 500; letter-spacing: 2px;
+            font-size: 4rem; font-weight: 500; font-style: italic; letter-spacing: 1px;
             color: var(--cor-texto);
         }
         .hero p {
             font-family: var(--fonte-titulo);
-            font-size: 1.7rem; font-weight: 500; font-style: italic; line-height: 1.2;
+            font-size: 2.1rem; font-weight: 500; font-style: italic; line-height: 1.2;
             color: var(--cor-destaque-escuro);
             margin-top: 0.6rem;
         }
@@ -186,11 +187,12 @@
         @media (max-width: 768px) {
             header { padding: 1rem; }
             .cabecalho-conteudo { flex-direction: column; gap: 0.6rem; }
-            .navegacao a { margin: 0 0.7rem; font-size: 0.7rem; letter-spacing: 1.5px; }
+            .navegacao { gap: 0.5rem 1.4rem; }
+            .navegacao a { margin: 0; font-size: 0.7rem; letter-spacing: 1.5px; }
             .hero { padding: 1.5rem 1rem 1.7rem; }
             .hero-colecao { font-size: 0.8rem; letter-spacing: 4px; }
             .hero-nome { font-size: 2.8rem; }
-            .hero p { font-size: 1.35rem; }
+            .hero p { font-size: 1.6rem; }
             .container { padding: 0 1rem; margin-top: 2rem; }
             .grade { column-width: 160px; column-gap: 1rem; }
             .card { margin-bottom: 1.6rem; }
@@ -201,12 +203,39 @@
             .grade-categorias .card { width: calc(50% - 0.5rem); }
             .filtros { gap: 0.3rem 1.1rem; }
         }
+
+        /* ===== CATÁLOGO: ordem de leitura (esquerda → direita) e variações lado a lado ===== */
+        :root { --fonte-codigo: 'DM Mono', ui-monospace, 'Courier New', monospace; }
+
+        .grade {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 2.8rem 2rem;
+            align-items: start;
+            column-width: auto;
+        }
+        .grade .card { margin-bottom: 0; display: block; }
+
+        .produto-grupo .grupo-itens { display: grid; gap: 0 1.2rem; align-items: start; }
+        .produto-grupo .variacao { min-width: 0; }
+
+        /* código do produto: fonte monoespaçada (todos os caracteres do mesmo tamanho) */
+        .card-titulo {
+            font-family: var(--fonte-codigo);
+            font-size: 0.95rem; font-weight: 500; letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .grade { grid-template-columns: repeat(2, 1fr); gap: 2rem 1rem; }
+            .produto-grupo .grupo-itens { gap: 0 0.8rem; }
+            .card-titulo { font-size: 0.8rem; letter-spacing: 0.5px; }
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="cabecalho-conteudo">
-            <div class="logo">Neuza Petti</div>
             <nav class="navegacao">
                 <a href="#" data-ir="inicio">Início</a>
                 <a href="#" data-ir="catalogo">Catálogo</a>
@@ -391,7 +420,12 @@
             {
                 id: 'kaftans', nome: 'Kaftans', singular: 'Kaftan', capa: 'sMrIDnY',
                 descricao: ['Disponíveis no Longo com 1,02 x 1,38 m e Midi com 1,02 x 1,18 m', 'Tecido: seda mista premium'],
-                imagens: ['YfFcTD5','rrxWMwU','sMrIDnY','AOtDD2V','R2q4LT5','k2lmHWq','MtjRb9S','vqEyKNi','sqiRZ2b','d0sIfuu','DLkA48O','hCaHKM7','VkdZVhc','pdzhZUQ','YoMPytC','7yArIFH','pgOjiq6','ieapnRD','9xTtJPT','DOu8fTh','PwMehnd','zwqBbHx','Okoa5kM','XiPwILI','pCNwUs3','yMpazoY','4GQcewg','wBM0paG','wvQoT33','BGfAuDv']
+                // Tamanho específico de cada variação (letra final do código): L = Longo, M = Midi
+                variacoes: {
+                    L: ['Longo: 1,02 x 1,38 m', 'Tecido: seda mista premium'],
+                    M: ['Midi: 1,02 x 1,18 m', 'Tecido: seda mista premium']
+                },
+                imagens: ['YfFcTD5','rrxWMwU','rfSFF4v','AOtDD2V','R2q4LT5','k2lmHWq','MtjRb9S','vqEyKNi','sqiRZ2b','d0sIfuu','DLkA48O','hCaHKM7','VkdZVhc','pdzhZUQ','YoMPytC','7yArIFH','pgOjiq6','ieapnRD','9xTtJPT','DOu8fTh','PwMehnd','zwqBbHx','Okoa5kM','XiPwILI','pCNwUs3','yMpazoY','4GQcewg','wBM0paG','wvQoT33','BGfAuDv']
             },
             {
                 id: 'clutchs', nome: 'Clutchs', singular: 'Clutch', capa: 'STiUpwX',
@@ -470,43 +504,94 @@
             });
         }
 
+        function nomeDoProduto(cat, codigo, i) {
+            const especial = cat.especiais && cat.especiais[codigo];
+            if (especial && especial.nome) return especial.nome;
+            if (NOMES[codigo]) return NOMES[codigo];
+            if (cat.nomes && cat.nomes[i]) return cat.nomes[i];
+            return `${cat.singular} ${String(i + 1).padStart(2, '0')}`;
+        }
+
+        // Ordena pela sequência numérica do código e junta variações
+        // (ex.: KF-NP-003L + KF-NP-003M => um bloco com as duas lado a lado)
+        function agruparProdutos(cat) {
+            const itens = cat.imagens.map((codigo, i) => {
+                const nome = nomeDoProduto(cat, codigo, i);
+                const m = nome.match(/^(.*\d)([A-Za-z])$/); // termina em número + letra
+                return { codigo, nome, base: m ? m[1] : nome, sufixo: m ? m[2].toUpperCase() : '' };
+            });
+            itens.sort((a, b) => a.nome.localeCompare(b.nome, 'pt', { numeric: true, sensitivity: 'base' }));
+
+            const grupos = [];
+            const porBase = {};
+            itens.forEach(item => {
+                if (item.sufixo) {
+                    if (!porBase[item.base]) {
+                        porBase[item.base] = [];
+                        grupos.push(porBase[item.base]);
+                    }
+                    porBase[item.base].push(item);
+                } else {
+                    grupos.push([item]);
+                }
+            });
+            return grupos;
+        }
+
+        function criarInfo(cat, item) {
+            const especial = cat.especiais && cat.especiais[codigoDe(item)];
+            const linhas = (especial && especial.descricao)
+                || (item.sufixo && cat.variacoes && cat.variacoes[item.sufixo])
+                || cat.descricao || [];
+
+            const info = document.createElement('div');
+            info.className = 'card-info';
+            info.innerHTML = `
+                <div class="card-categoria"></div>
+                <h3 class="card-titulo"></h3>
+                <div class="card-descricao"></div>
+                <a target="_blank" rel="noopener" class="botao-interesse">Tenho Interesse</a>`;
+            info.querySelector('.card-categoria').textContent = cat.nome;
+            info.querySelector('.card-titulo').textContent = item.nome;
+            const boxDesc = info.querySelector('.card-descricao');
+            linhas.forEach(l => {
+                const p = document.createElement('p');
+                p.textContent = l;
+                boxDesc.appendChild(p);
+            });
+            info.querySelector('a').href = linkWhatsApp(item.nome);
+            return info;
+        }
+        const codigoDe = (item) => item.codigo;
+
         function montarProdutos() {
             const grade = $('grade-produtos');
             CATEGORIAS.forEach(cat => {
-                cat.imagens.forEach((codigo, i) => {
-                    const especial = cat.especiais && cat.especiais[codigo];
-                    const nomeProduto = (especial && especial.nome)
-                        ? especial.nome
-                        : NOMES[codigo]
-                            ? NOMES[codigo]
-                            : (cat.nomes && cat.nomes[i])
-                                ? cat.nomes[i]
-                                : `${cat.singular} ${String(i + 1).padStart(2, '0')}`;
-                    const linhas = (especial && especial.descricao) || cat.descricao || [];
-
+                agruparProdutos(cat).forEach(grupo => {
                     const card = document.createElement('div');
-                    card.className = 'card produto';
                     card.dataset.categoria = cat.id;
-                    card.appendChild(criarImagem(codigo, nomeProduto));
 
-                    const info = document.createElement('div');
-                    info.className = 'card-info';
-                    info.innerHTML = `
-                        <div class="card-categoria"></div>
-                        <h3 class="card-titulo"></h3>
-                        <div class="card-descricao"></div>
-                        <a target="_blank" rel="noopener" class="botao-interesse">Tenho Interesse</a>`;
-                    info.querySelector('.card-categoria').textContent = cat.nome;
-                    info.querySelector('.card-titulo').textContent = nomeProduto;
-                    const boxDesc = info.querySelector('.card-descricao');
-                    linhas.forEach(l => {
-                        const p = document.createElement('p');
-                        p.textContent = l;
-                        boxDesc.appendChild(p);
-                    });
-                    info.querySelector('a').href = linkWhatsApp(nomeProduto);
-
-                    card.appendChild(info);
+                    if (grupo.length === 1) {
+                        card.className = 'card produto';
+                        card.appendChild(criarImagem(grupo[0].codigo, grupo[0].nome));
+                        card.appendChild(criarInfo(cat, grupo[0]));
+                    } else {
+                        // variações lado a lado (ocupa o espaço de N cards)
+                        const n = grupo.length;
+                        card.className = 'card produto produto-grupo';
+                        card.style.gridColumn = `span ${n}`;
+                        const wrap = document.createElement('div');
+                        wrap.className = 'grupo-itens';
+                        wrap.style.gridTemplateColumns = `repeat(${n}, minmax(0, 1fr))`;
+                        grupo.forEach(item => {
+                            const v = document.createElement('div');
+                            v.className = 'variacao';
+                            v.appendChild(criarImagem(item.codigo, item.nome));
+                            v.appendChild(criarInfo(cat, item));
+                            wrap.appendChild(v);
+                        });
+                        card.appendChild(wrap);
+                    }
                     grade.appendChild(card);
                 });
             });
